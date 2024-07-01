@@ -4,34 +4,33 @@
 # https://aka.ms/yaml
 
 trigger:
-- main  # Especifica la rama que desencadenará el pipeline
+  branches:
+    include:
+      - main  # O ajusta según la rama que desees
 
 pool:
-  vmImage: 'ubuntu-latest'  # Imagen de la máquina virtual para ejecutar el pipeline
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '14.x'  # Versión de Node.js a utilizar
+    versionSpec: '14.x'
   displayName: 'Install Node.js'
 
 - script: |
     npm install
     npm run build
-  displayName: 'Install dependencies and build'
+  displayName: 'Install dependencies and build React app'
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/build'  # Ruta al directorio de archivos a comprimir
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build'
     includeRootFolder: false
-    archiveType: 'zip'  # Tipo de archivo a crear (puedes ajustarlo según tus necesidades)
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'  # Ruta donde se almacenará el archivo comprimido
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
-  displayName: 'Archive build files'
 
-- task: PublishBuildArtifacts@1
+- task: PublishPipelineArtifact@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'  # Ruta del archivo comprimido a publicar
-    ArtifactName: 'drop'  # Nombre del artefacto
-    publishLocation: 'Container'  # Ubicación donde se publicarán los artefactos
-  displayName: 'Publish build artifacts'
+    targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    artifactName: 'drop'
