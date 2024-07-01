@@ -19,7 +19,14 @@ steps:
   displayName: 'npm install'
 - script: |
     npm run build
-  displayName: 'npm install'
+  displayName: 'npm build react'
 
-- powershell: |
-    ls ./build
+- task: AzureCLI@2
+  displayName: Deploying app to AZ Static Web App
+  inputs:
+    azureSubscription: SubMafer
+    scriptType: ps
+    scriptLocation: inlineScript
+    inlineScript: |
+      cd ./build
+      swa deploy
