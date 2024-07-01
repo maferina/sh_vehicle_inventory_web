@@ -1,0 +1,77 @@
+/* Definición de variables para los colores */
+:root {
+    --color-grey: #3d3b3b;       
+    --color-dark-blue: #0056b3;  
+    --color-white: #fff;          
+    --color-black: #000;        
+    --color-light-gray: #81868b;  
+    --color-black-transparent: rgba(0, 0, 0, 0.1); 
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--color-grey); 
+}
+
+.login-form {
+    background-color: var(--color-white); 
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--color-black-transparent); 
+}
+
+.login-header {
+    margin-bottom: 20px;
+    color: var(--color-grey); 
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-black); 
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--color-grey); 
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    box-shadow: 0 2px 4px var(--color-black-transparent); 
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--color-grey); 
+    border-radius: 4px;
+    background-color: var(--color-grey); 
+    color: var(--color-white); 
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: var(--color-dark-blue); 
+    border-color: var(--color-dark-blue); 
+}
+
+.apple-login-button {
+    background-color: var(--color-black); 
+    border: 2px solid var(--color-black); 
+}
+
+
+.apple-button-logo {
+    fill: var(--color-white); 
+}
