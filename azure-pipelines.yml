@@ -19,5 +19,5 @@ steps:
     npm run build
   displayName: 'npm install and build'
 
-- script: |
-    dir ./dist
+- powershell: |
+    ls ./dist
