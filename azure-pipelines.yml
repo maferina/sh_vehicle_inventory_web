@@ -20,4 +20,4 @@ steps:
   displayName: 'npm install and build'
 
 - powershell: |
-    ls ./dist
+    ls
