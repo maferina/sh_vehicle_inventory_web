@@ -1,10 +1,12 @@
 import axios from 'axios';
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const API_URL = '/auth';
 
+
 export const login = async (userData) => {
   try {
+    console.log('Axios base URL:', axios.defaults.baseURL)
+    console.log('entro aqui login service')
     const response = await axios.post(`${API_URL}/login`, userData, {
       headers: {
         'Content-Type': 'application/json',
