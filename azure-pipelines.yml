@@ -28,13 +28,13 @@ steps:
     npm install -g @azure/static-web-apps-cli
   displayName: Installing SWA CLI
 
-- task: AzureCLI@2
-  displayName: Deploying app to AZ Static Web App
+- task: AzureStaticWebApp@0
   inputs:
-    azureSubscription: SubMafer
-    scriptType: ps
-    scriptLocation: inlineScript
-    inlineScript: |
-      swa deploy --app-name VehicleInvWeb --env production
+    app_location: '.'
+    output_location: './build'
+    skip_app_build: true
+    skip_api_build: true
+    production_branch: 'master'
+    azure_static_web_apps_api_token: $(staticwebappkey)
   env:
-    SWA_CLI_DEPLOYMENT_TOKEN: $(staticwebappkey)
+    SOME_ENV_VAR: abcdefg
