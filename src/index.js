@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:1337/api'; // URL base de tu backend
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
