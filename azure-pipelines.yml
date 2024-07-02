@@ -8,6 +8,9 @@ trigger:
 
 pool: local
 
+variables:
+- group: project-vars
+
 steps:
 - task: NodeTool@0
   inputs:
@@ -21,6 +24,10 @@ steps:
     npm run build
   displayName: 'npm build react'
 
+- script: |
+    npm install -g @azure/static-web-apps-cli
+  displayName: Installing SWA CLI
+
 - task: AzureCLI@2
   displayName: Deploying app to AZ Static Web App
   inputs:
@@ -29,4 +36,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       cd ./build
-      swa deploy
+      swa deploy --app-name VehicleInvWeb
+  env:
+    SWA_CLI_DEPLOYMENT_TOKEN: $(staticwebappkey)
