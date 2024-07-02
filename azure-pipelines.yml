@@ -36,6 +36,6 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
       cd ./build
-      swa deploy --app-name VehicleInvWeb
+      swa deploy --app-name VehicleInvWeb --env production
   env:
     SWA_CLI_DEPLOYMENT_TOKEN: $(staticwebappkey)
