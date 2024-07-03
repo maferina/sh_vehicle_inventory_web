@@ -70,11 +70,12 @@ const Configuration = () => {
             const response = await createBrandVehicle({
                 description: currentBrand.description.trim()
             });
-            // Fetch updated data
-            const brandResponse = await getAllBrandVehicles();
-            setBrands(brandResponse.data);
+            // Fetch updated data    
+            //st brandResponse = await getAllBrandVehicles();
+            //setBrands(brandResponse.data);
             setShowModal(true);
             setModalMessage(response?.data.message);
+            fetchData();
             setCurrentBrand({ id: '', description: '' });
         } catch (error) {
             const errorMessage = error.response?.data?.error || 'Error al procesar marca';

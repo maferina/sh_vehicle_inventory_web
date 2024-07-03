@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import axios from 'axios';
 
-axios.defaults.baseURL ='https://vehicleinvapi.azurewebsites.net';
+axios.defaults.baseURL = "https://vehicleinvapi.eastus2.azurecontainer.io:8080/";
 
 
 axios.interceptors.request.use(config => {

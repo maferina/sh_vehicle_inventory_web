@@ -48,6 +48,7 @@ const VehicleForm = ({ handleClose, initialData }) => {
 
     useEffect(() => {
         if (initialData) {
+            const filteredModels = originalModels.filter(model => model.brand_Id === initialData);
             setVehicle({
                 brand_Id: initialData.brand_Id || '',
                 model_Id: initialData.model_Id || '',
@@ -57,7 +58,8 @@ const VehicleForm = ({ handleClose, initialData }) => {
                 id: initialData.id || '',
                 images: initialData.images || [],
             });
-            setImages(initialData.images || []);           
+            setImages(initialData.images || []);  
+            setModels(filteredModels)         
         }
     }, [initialData,originalModels]);
 
