@@ -70,9 +70,6 @@ const Configuration = () => {
             const response = await createBrandVehicle({
                 description: currentBrand.description.trim()
             });
-            // Fetch updated data    
-            //st brandResponse = await getAllBrandVehicles();
-            //setBrands(brandResponse.data);
             setShowModal(true);
             setModalMessage(response?.data.message);
             fetchData();
@@ -362,7 +359,7 @@ const Configuration = () => {
                             {models.map((model) => (
                                 <tr key={model.id}>
                                     <td>{model.description}</td>
-                                    <td>{brands.find((brand) => brand.id === model.brandId)?.description}</td>
+                                    <td>{brands.find((brand) => brand.id === model.brand_Id)?.description}</td>
                                     <td className="action-column">
                                         <button className="action-button" onClick={() => handleEditModel(model.id)}>
                                             <FontAwesomeIcon icon={faEdit} className="edit-icon" title="Editar Modelo" />

@@ -14,8 +14,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 
 const VehicleList = () => {
-    const roleUser = localStorage.getItem('role'); 
-console.log('roleUser:', roleUser);
+    const roleUser = localStorage.getItem('role');
     const navigate = useNavigate();
     const [filters, setFilters] = useState({
         brand_Id: null,
@@ -341,7 +340,7 @@ console.log('roleUser:', roleUser);
                     <Pagination
                         count={totalPages}
                         page={currentPage}
-                        onChange={(event, page) => handlePageChange(event, page)} 
+                        onChange={(event, page) => handlePageChange(event, page)}
                         renderItem={(item) => (
                             <PaginationItem
                                 component={Button}
