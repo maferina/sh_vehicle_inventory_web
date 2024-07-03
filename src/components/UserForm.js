@@ -114,7 +114,7 @@ const UserForm = ({ handleClose, initialData }) => {
                 setFormValid(false);
             }
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error al procesar el usuario';
+            const errorMessage = error.response?.data?.error || 'Error al procesar el usuario';
             setModalMessage(errorMessage);
             setShowModal(true);
         }

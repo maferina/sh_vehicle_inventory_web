@@ -16,6 +16,7 @@ const LoginForm = () => {
         try {
             const userData = { email, password };
             const response = await login(userData);
+            console.log(response)
             if (response && response.token) {
                 const { token, user ,tokenExpiration} = response;
                 localStorage.setItem('token', token);
@@ -27,7 +28,7 @@ const LoginForm = () => {
                 alert(response.message);
             }
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error al procesar usuario';
+            const errorMessage = error.response?.data?.error || 'Error al procesar usuario';
             setModalMessage(errorMessage);
             setShowMessageModal(true);
         }

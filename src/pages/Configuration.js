@@ -98,7 +98,7 @@ const Configuration = () => {
             setModalMessage(response?.data.message);
             setCurrentModel({ id: '', description: '', brandId: '', brandName: '' });
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error al procesar modelo';
+            const errorMessage = error.response?.data?.error || 'Error al procesar modelo';
             setModalMessage(errorMessage);
             setShowModal(true);
         }
@@ -150,7 +150,7 @@ const Configuration = () => {
 
             setEditMode(false);
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error al procesar marca';
+            const errorMessage = error.response?.data?.error || 'Error al procesar marca';
             setModalMessage(errorMessage);
             setShowModal(true);
         }
@@ -187,7 +187,7 @@ const Configuration = () => {
             setEditMode(false);
 
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error al procesar modelo';
+            const errorMessage = error.response?.data?.error|| 'Error al procesar modelo';
             setModalMessage(errorMessage);
             setShowModal(true);
         }
@@ -216,7 +216,7 @@ const Configuration = () => {
             }
             setShowModal(true);
         } catch (error) {
-            const errorMessage = error.response?.data?.message || 'Error al procesar';
+            const errorMessage = error.response?.data?.error || 'Error al procesar';
             setModalMessage(errorMessage);
             setShowModal(true);
         } finally {

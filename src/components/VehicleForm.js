@@ -219,7 +219,7 @@ const VehicleForm = ({ handleClose, initialData }) => {
                 setFormValid(false);
             }
         } catch (error) {
-            const errorMessage = error.response?.data?.message|| 'Error al procesar el vehiculo';
+            const errorMessage = error.response?.data?.error|| 'Error al procesar el vehiculo';
             setModalMessage(errorMessage);
             setShowModal(true);
         }
