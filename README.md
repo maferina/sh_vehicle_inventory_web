@@ -33,6 +33,7 @@ Este proyecto es una aplicación web para la gestión de inventario de vehículo
 2. Abrir el navegador y navegar a http://localhost:3000
 
 ## Despliegue 
+URL=https://salmon-dune-0cf423b0f.5.azurestaticapps.net/
 1. Azure Subscription: Se necesita una suscripción de Azure para desplegar los contenedores y configurar otros recursos necesarios.
 2. Azure Static Web Apps CLI
 
