@@ -28,6 +28,7 @@ const VehicleForm = ({ handleClose, initialData }) => {
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -176,7 +177,7 @@ const VehicleForm = ({ handleClose, initialData }) => {
         if (!formValid) {
             return;
         }
-
+        setSubmitting(true); 
         const formData = new FormData();
         formData.append('brand_Id', vehicle.brand_Id);
         formData.append('model_Id', vehicle.model_Id);
@@ -184,7 +185,7 @@ const VehicleForm = ({ handleClose, initialData }) => {
         formData.append('year', vehicle.year);
         formData.append('status', vehicle.status);
 
-        if (images && images.length > 0) {
+       if (images && images.length > 0) {
             images.forEach((image) => {
                 if (image.url) {
                     formData.append('existingImage', image.id);
@@ -222,8 +223,11 @@ const VehicleForm = ({ handleClose, initialData }) => {
             const errorMessage = error.response?.data?.error|| 'Error al procesar el vehiculo';
             setModalMessage(errorMessage);
             setShowModal(true);
+        } finally {
+            setSubmitting(false); // Se establece el estado de submitting a false después del envío
         }
     };
+
 
     const closeModal = () => {
         setShowModal(false);
@@ -348,8 +352,11 @@ const VehicleForm = ({ handleClose, initialData }) => {
                         <SortableImageList images={images} onSortEnd={onSortEnd} useDragHandle />
                     </Grid>
                     <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary" disabled={!formValid}>
-                            {initialData ? 'Actualizar' : 'Crear'}
+                        <Button type="submit" 
+                        variant="contained" 
+                        color="primary" 
+                        disabled={!formValid || submitting} >
+                             {submitting ? 'Enviando...' : (initialData ? 'Actualizar' : 'Crear')}
                         </Button>
                     </Grid>
                 </Grid>

@@ -2,32 +2,13 @@
 
 ## Descripción General
 
-Este proyecto es una aplicación web para la gestión de inventario de vehículos, que cuenta con un dashboard dividido en vehículo, configuración de marcas-modelos y gestión de usuarios. La aplicación permite listar ,insertar, actualizar y eliminar vehículos, usuario, marcas y modelos. Para el modulo de vehiculos se le agregó imágenes que se pueden visualizar a través de un carrusel. Existen 2 tipos de roles de usuarios, rol administrador encargado de realizar todas las operaciones y  rol de consulta que solo podra visualizar los vehículos, no tendra acceso a insertar, ni editar ni eliminar vehículos asi como tampoco tendra acceso al módulo de configuración y usuario.Se ingresa a la aplicación a través del correo electronico y password, se debe ingresa un correo valido y el password debe tener minimo 6 caracteres.
+Este proyecto es una aplicación web para la gestión de inventario de vehículos, que cuenta con un dashboard dividido en vehículo, configuración de marcas-modelos y gestión de usuarios. La aplicación permite listar ,insertar, actualizar y eliminar vehículos, usuario, marcas y modelos.
 
 ## Características
 
-- **Formulario de Vehículo**:
-  - Insertar un nuevo vehículo con imágenes.
-  - Listar todos los vehículos.
-  - Filtra los vehículo por marca, modelo, año y estatus.
-  - Actualizar la información de un vehículo existente.
-  - Eliminar un vehículo.
-
-- **Formulario de Configuración**:
-   - Insertar un nueva marca o modelo de vehículo.
-   - Listar todos las marcas y modelos de vehículos.
-   - Actualizar la información de una marca o modelo existente.
-   - Eliminar una marca o modelo de vehículo siempre y cuando no este asociado a un registro existente.
-
-- **Formulario de Usuarios**:
-  - Insertar un nuevo usuario.
-  - Listar todos los usuario.
-  - Filtra los usuarios por nombre, rol,  y estatus.
-  - Actualizar la información de un usuario existente.
-  - Eliminar un usuario.
-
-- **Header**:
-  - Presente en todas las páginas excepto en la página de inicio de sesión.
+- Formulario de Vehículo
+- Formulario de Configuración
+- Formulario de Usuarios  
 
 ## Requisitos del Sistema
 
@@ -51,33 +32,54 @@ Este proyecto es una aplicación web para la gestión de inventario de vehículo
    npm start
 2. Abrir el navegador y navegar a http://localhost:3000
 
-## Estructura del Proyecto
-├── public
-├── src
-│   ├── assets
-│   │   ├── img
-│   ├── components
-│   │   ├── Header.js
-│   │   ├── Modal.js
-│   │   ├── ProtectedRoute.js
-│   │   ├── UserForm.js
-│   │   ├── VehicleForm.js
-│   ├── pages
-│   │   ├── Configuration.js
-│   │   ├── Dashboard.js
-│   │   ├── Login.js
-│   │   ├── UserList.js
-│   │   ├── VehicleList.js
-│   ├── services
-│   │   ├── BrandVehicleService.js
-│   │   ├── LoginService.js
-│   │   ├── ModelVehicleService.js
-│   │   ├── UserService.js
-│   │   ├── VehicleService.js
-│   ├── App.js
-│   ├── index.js
-│   ├── ProtectedRoute.js
-└── package.json
+## Despliegue 
+1. Azure Subscription: Se necesita una suscripción de Azure para desplegar los contenedores y configurar otros recursos necesarios.
+2. Azure Static Web Apps CLI
+
+## Pipeline
+Configuración del Pipeline de Azure
+El archivo azure-pipelines.yml contiene la configuración del pipeline que automatiza el despliegue
+ ## trigger: - master: ## 
+ Este bloque configura el pipeline para que se ejecute automáticamente cada vez que haya un push a la rama master
+ ## pool: local : ## 
+ se configuro de esa manera porque la cuenta de la suscripcion es gratuita , pedi aumento de el paralelismo a traves de correo pero a la fecha no han ejecutado el requerimiento
+ ## group: project-vars: ##
+ Este bloque define un grupo de variables que se utilizarán en el pipeline. project-vars es un grupo predefinido de variables que contienen valores sensibles como contraseñas y secretos.
+ ## Steps :##  Instalación de Node.js
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+ ## Instalación de Dependencias del Proyecto
+ - script: |
+    npm install
+  displayName: 'npm install'
+ ## Construcción del Proyecto React
+ - script: |
+    npm run build
+  displayName: 'npm build react'
+ ## Instalación de Azure Static Web Apps CLI
+ - script: |
+    npm install -g @azure/static-web-apps-cli
+  displayName: Installing SWA CLI
+ ## Despliegue de la Aplicación
+ - task: AzureCLI@2
+  displayName: Deploying app to AZ Static Web App
+  inputs:
+    azureSubscription: SubMafer
+    scriptType: ps
+    scriptLocation: inlineScript
+    inlineScript: |
+      swa deploy --app-name VehicleInvWeb --env production
+  env:
+    SWA_CLI_DEPLOYMENT_TOKEN: $(staticwebappkey)
+
+ ## Despliegue de Cambios
+ git add .
+ git commit -m "Descripción del cambio"
+ git pull
+ git push
+
 
 
 ## Autor
