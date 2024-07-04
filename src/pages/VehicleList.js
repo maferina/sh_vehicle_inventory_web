@@ -45,6 +45,9 @@ const VehicleList = () => {
             setTotalRecords(vehicleResponse.data.totalCount);
             setTotalPages(Math.ceil(vehicleResponse.data.totalCount / 15));
 
+            console.log('vehicleResponse')
+            console.log(vehicleResponse)
+
             const brandResponse = await getAllBrandVehicles();
             setBrands(brandResponse.data);
 

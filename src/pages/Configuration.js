@@ -31,6 +31,8 @@ const Configuration = () => {
     const [deleteItemName, setDeleteItemName] = useState(null);
     const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
     const role = localStorage.getItem('role');
+    const [creating, setCreating] = useState(false);
+    const [updating, setUpdating] = useState(false);
 
 
     const fetchData = async () => {
@@ -67,6 +69,7 @@ const Configuration = () => {
         if (currentBrand.description.trim() === '') return;
 
         try {
+            setCreating(true);
             const response = await createBrandVehicle({
                 description: currentBrand.description.trim()
             });
@@ -78,6 +81,8 @@ const Configuration = () => {
             const errorMessage = error.response?.data?.error || 'Error al procesar marca';
             setModalMessage(errorMessage);
             setShowModal(true);
+        } finally {
+            setCreating(false); // Finaliza la creación
         }
     };
 
@@ -124,6 +129,7 @@ const Configuration = () => {
         if (currentBrand.description.trim() === '') return;
 
         try {
+            setUpdating(true);
             const response = await updateBrandVehicle({
                 id: currentBrand.id,
                 description: currentBrand.description.trim()
@@ -150,6 +156,8 @@ const Configuration = () => {
             const errorMessage = error.response?.data?.error || 'Error al procesar marca';
             setModalMessage(errorMessage);
             setShowModal(true);
+        } finally {
+            setUpdating(false); // Finaliza la actualización
         }
     };
 
@@ -184,7 +192,7 @@ const Configuration = () => {
             setEditMode(false);
 
         } catch (error) {
-            const errorMessage = error.response?.data?.error|| 'Error al procesar modelo';
+            const errorMessage = error.response?.data?.error || 'Error al procesar modelo';
             setModalMessage(errorMessage);
             setShowModal(true);
         }
@@ -269,8 +277,9 @@ const Configuration = () => {
                                 variant="contained"
                                 color="success"
                                 onClick={editMode ? handleUpdateBrand : handleCreateBrand}
+                                disabled={creating || updating}
                             >
-                                {editMode ? 'Actualizar' : 'Crear'}
+                                   {creating || updating ? 'Procesando...' : (editMode ? 'Actualizar' : 'Crear')}
                             </Button>
                             {editMode && (
                                 <Button type="button" variant="contained" onClick={handleCancelEdit} className="cancel-button">

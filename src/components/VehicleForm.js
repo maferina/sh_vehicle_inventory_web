@@ -48,7 +48,7 @@ const VehicleForm = ({ handleClose, initialData }) => {
 
     useEffect(() => {
         if (initialData) {
-            const filteredModels = originalModels.filter(model => model.brand_Id === initialData);
+            const filteredModels = originalModels.filter(model => model.brand_Id === initialData.brand_Id);
             setVehicle({
                 brand_Id: initialData.brand_Id || '',
                 model_Id: initialData.model_Id || '',
